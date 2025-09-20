@@ -3,25 +3,19 @@ class Solution {
         if(s.length() != t.length()){
             return false;
         }
-        Map<Character, Character> map1 = new HashMap<>();
-        Map<Character, Character> map2 = new HashMap<>();
+        Map<Character, Integer> map1 = new HashMap<>();
+        Map<Character, Integer> map2 = new HashMap<>();
         for(int i = 0; i < s.length(); i++) {
             char charS = s.charAt(i);
             char charT = t.charAt(i);
-            if(map1.containsKey(charS)) {
-                if(!map1.get(charS).equals(charT)){
-                    return false;
-                }
-            } else {
-                map1.put(charS, charT);
+            if (!map1.containsKey(charS)) {
+                map1.put(charS, i);
             }
-
-            if(map2.containsKey(charT)) {
-                if(!map2.get(charT).equals(charS)){
-                    return false;
-                }
-            } else {
-                map2.put(charT, charS);
+            if(!map2.containsKey(charT)) {
+                map2.put(charT, i);
+            }
+            if(!map1.get(charS).equals(map2.get(charT))){
+                return false;
             }
         }
         return true;
