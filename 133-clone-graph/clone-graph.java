@@ -19,25 +19,33 @@ class Node {
 */
 
 class Solution {
-    public Node cloneGraph(Node node) {
-        if(node == null) {
-            return null;
-        }
-        Map<Node, Node> map = new HashMap<>();
-        Queue<Node> q = new LinkedList<>();
-        q.add(node);
-        map.put(node, new Node(node.val));
+    Map<Integer, Node> nodes = new HashMap<>();
 
-        while(!q.isEmpty()){
-            Node curr = q.poll();
-            for(Node n : curr.neighbors) {
-                if(!map.containsKey(n)){
-                    map.put(n, new Node(n.val));
-                    q.add(n);
-                }
-                map.get(curr).neighbors.add(map.get(n));
-            }
+    public Node cloneGraph(Node node) {
+        // If the starting node is null, the clone must also be null.
+        if (node == null) return null;
+
+        // Check if the node has already been cloned.
+        // The HashMap.containsKey() method checks for the key's existence.
+        if (nodes.containsKey(node.val)) {
+            // If it's already cloned, return the existing copy from the map.
+            return nodes.get(node.val);
         }
-        return map.get(node);
+
+        // This is the first time visiting this node.
+        // Create a new node (the copy).
+        Node copiedNode = new Node(node.val);
+        // Add the newly created copy to the map to prevent re-cloning.
+        nodes.put(node.val, copiedNode);
+
+        // Iterate through all neighbors of the original node.
+        for (Node neighbor : node.neighbors) {
+            // Recursively call cloneGraph for each neighbor and add the
+            // returned clone to our new node's neighbor list.
+            copiedNode.neighbors.add(cloneGraph(neighbor));
+        }
+
+        // Return the new node, whose adjacency list is now fully copied.
+        return copiedNode;
     }
 }
