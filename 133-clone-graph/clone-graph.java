@@ -19,7 +19,7 @@ class Node {
 */
 
 class Solution {
-    Map<Integer, Node> nodes = new HashMap<>();
+    Map<Node, Node> nodes = new HashMap<>();
 
     public Node cloneGraph(Node node) {
         // If the starting node is null, the clone must also be null.
@@ -27,16 +27,16 @@ class Solution {
 
         // Check if the node has already been cloned.
         // The HashMap.containsKey() method checks for the key's existence.
-        if (nodes.containsKey(node.val)) {
+        if (nodes.containsKey(node)) {
             // If it's already cloned, return the existing copy from the map.
-            return nodes.get(node.val);
+            return nodes.get(node);
         }
 
         // This is the first time visiting this node.
         // Create a new node (the copy).
         Node copiedNode = new Node(node.val);
         // Add the newly created copy to the map to prevent re-cloning.
-        nodes.put(node.val, copiedNode);
+        nodes.put(node, copiedNode);
 
         // Iterate through all neighbors of the original node.
         for (Node neighbor : node.neighbors) {
