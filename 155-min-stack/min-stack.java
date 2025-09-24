@@ -1,32 +1,33 @@
 class MinStack {
-    Stack<Integer> stack;
-    Stack<Integer> minStack;
+    Stack<Integer> stack; // -> all regular stack value
+    Stack<Integer> minStack; // -> only the minimum value
+
     public MinStack() {
         this.stack = new Stack<>();
         this.minStack = new Stack<>();
     }
+    
     public void push(int val) {
         stack.push(val);
-
-        if(minStack.isEmpty() || val <= minStack.peek()) {
-            minStack.push(val);
+        
+        if(minStack.isEmpty() || minStack.peek() >= stack.peek()) {
+            minStack.push(val); // means that val = minimum
         }
     }
     
     public void pop() {
         int removed = stack.pop();
-
-        if(minStack.peek() == removed) {
+        if(removed == minStack.peek()) { // check if the removed element is also contained in the min Stack
             minStack.pop();
         }
     }
     
     public int top() {
-        return stack.peek();
+        return stack.peek(); // get the top element in the stack
     }
     
     public int getMin() {
-        return minStack.peek();
+        return minStack.peek(); // get the top element from the minimum stack.
     }
 }
 
