@@ -3,20 +3,23 @@ class Solution {
         if(s.length() != t.length()) {
             return false;
         }
-        
-        Map<Character, Integer> mapS = new HashMap<>();
-        Map<Character, Integer> mapT = new HashMap<>();
+        Map<Character, Character> map1 = new HashMap<>();
+        Map<Character, Character> map2 = new HashMap<>();
+
         for(int i = 0; i < s.length(); i++) {
-            if(!mapS.containsKey(s.charAt(i))){
-                mapS.put(s.charAt(i), i);
-            }
-            if(!mapT.containsKey(t.charAt(i))) {
-                mapT.put(t.charAt(i), i);
-            }
-            if(!mapS.get(s.charAt(i)).equals(mapT.get(t.charAt(i)))) {
+            char charS = s.charAt(i);
+            char charT = t.charAt(i);
+            if(map1.containsKey(charS) && map1.get(charS) != charT){
                 return false;
             }
+            map1.put(charS, charT);
+
+            if(map2.containsKey(charT) && map2.get(charT) != charS) {
+                return false;
+            }
+            map2.put(charT, charS);
         }
+
         return true;
     }
 }
