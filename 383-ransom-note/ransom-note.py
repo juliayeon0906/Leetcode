@@ -10,11 +10,9 @@ class Solution:
         for char in magazine:
             map[char] = 1 + map.get(char, 0)
         
-        for i in range(len(ransomNote)):
-            if ransomNote[i] in map and map.get(ransomNote[i], 0) > 0:
-                map[ransomNote[i]] = map.get(ransomNote[i]) - 1
-            else:
+        for char in ransomNote:
+            if char not in map or map[char] <= 0:
                 return False
-        
+            map[char] -= 1
+
         return True
-        
