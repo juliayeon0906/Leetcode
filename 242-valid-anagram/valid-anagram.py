@@ -2,15 +2,11 @@ class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
         if len(s) != len(t):
             return False
-
-        counter = {}
-
-        for char in s:
-            counter[char] = counter.get(char, 0) + 1
-
-        for char in t:
-            if char not in counter or counter[char] == 0:
-                return False
-            counter[char] -= 1
         
-        return True
+        count = {}
+
+        for i in range(len(s)):
+            count[s[i]] = count.get(s[i], 0) + 1
+            count[t[i]] = count.get(t[i], 0) - 1
+        
+        return all(val == 0 for val in count.values())
