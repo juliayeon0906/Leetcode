@@ -1,16 +1,19 @@
 class Solution:
     def isIsomorphic(self, s: str, t: str) -> bool:
-        char_idx_s = {}
-        char_idx_t = {}
+        s_hash = {}
+        t_hash = {}
 
-        for i in range(len(s)):
-            if s[i] not in char_idx_s:
-                char_idx_s[s[i]] = i
-            
-            if t[i] not in char_idx_t:
-                char_idx_t[t[i]] = i
-
-            if char_idx_s[s[i]] != char_idx_t[t[i]]:
-                return False
+        if len(s) != len(t):
+            return False
         
+        for i in range(len(s)):
+            if s[i] not in s_hash:
+                s_hash[s[i]] = i
+            
+            if t[i] not in t_hash:
+                t_hash[t[i]] = i
+            
+            if s_hash[s[i]] != t_hash[t[i]]:
+                return False
+
         return True
