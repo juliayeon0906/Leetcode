@@ -6,6 +6,5 @@ class Solution:
             if nums[i] != val:
                 nums[k] = nums[i]
                 k += 1
-            i += 1
 
         return k
