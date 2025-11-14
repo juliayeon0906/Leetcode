@@ -1,19 +1,20 @@
 class Solution:
     def isIsomorphic(self, s: str, t: str) -> bool:
-        s_hash = {}
-        t_hash = {}
-
         if len(s) != len(t):
             return False
         
-        for i in range(len(s)):
-            if s[i] not in s_hash:
-                s_hash[s[i]] = i
-            
-            if t[i] not in t_hash:
-                t_hash[t[i]] = i
-            
-            if s_hash[s[i]] != t_hash[t[i]]:
-                return False
+        seen = {}
 
+        for s_char, t_char in zip(s, t):
+            key_s = ("s_char", s_char)
+            key_t = ("t_char", t_char)
+
+            if key_s in seen and seen[key_s] != t_char:
+                return False
+            if key_t in seen and seen[key_t] != s_char:
+                return False
+            
+            seen[key_s] = t_char
+            seen[key_t] = s_char
+        
         return True
