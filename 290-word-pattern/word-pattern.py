@@ -1,15 +1,12 @@
 class Solution:
     def wordPattern(self, pattern: str, s: str) -> bool:
-        word = s.split(" ")
+        words = s.split(" ")
 
-        if len(pattern) != len(word):
+        if len(pattern) != len(words):
             return False
         
         seen = {}
-
-        # zip은 이렇게 생각하면 돼요: "abba" + "dog cat cat dog" → (a,dog), (b,cat), (b,cat), (a,dog)
-
-        for p, w in zip(pattern, word):
+        for p, w in zip(pattern, words):
             key_p = ("p", p)
             key_w = ("w", w)
 
@@ -19,5 +16,5 @@ class Solution:
                 return False
             seen[key_p] = w
             seen[key_w] = p
+        
         return True
-
